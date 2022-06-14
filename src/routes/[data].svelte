@@ -6,11 +6,13 @@
     import Calendar from "$lib/components/Calendar.svelte";
     import Order from "$lib/components/Order.svelte";
     import links from "$lib/links";
+import CustomisableCalendar from "$lib/components/CustomisableCalendar.svelte";
 
     let rankings = [];
     let parameters = {};
 
-    let timetables = null;
+    let customisable_timetable = null;
+    let generated_timetables = null;
     let log = [];
     let selected_timetable = 0;
     let selected_semester = undefined;
@@ -22,9 +24,9 @@
     let semester_options = [];
 
     $: if (
-        timetables !== null &&
-        timetables.length > 0 &&
-        selected_timetable >= timetables.length
+        generated_timetables !== null &&
+        generated_timetables.length > 0 &&
+        selected_timetable >= generated_timetables.length
     ) {
         selected_timetable = 0;
     }
@@ -100,15 +102,25 @@
         }
     }
 
-    function run() {
-        timetables = null;
+    function run_generate() {
+        customisable_timetable = null;
+        generated_timetables = null;
 
-        timetables = generate(decoded.filter(s => s.semester === selected_semester), {
+        generated_timetables = generate(decoded.filter(s => s.semester === selected_semester), {
             rankings,
             parameters,
         });
 
         selected_timetable = 0;
+    }
+    function run_customiser() {
+        customisable_timetable = null;
+        generated_timetables = null;
+        
+        customisable_timetable = generate(decoded.filter(s => s.semester === selected_semester), {
+            rankings,
+            parameters,
+        })[1];
     }
 </script>
 
@@ -178,10 +190,11 @@
                 </div>
             {/if}
 
-            <button id="generate_button" on:click={run}> Generate </button>
+            <button id="generate_button" on:click={run_generate}> Generate </button>
+            <button id="customiser_button" on:click={run_customiser}> Customise own timetable </button>
         </div>
 
-        {#if timetables !== null && timetables.length > 0}
+        {#if generated_timetables !== null && generated_timetables.length > 0}
             <div id="summary" class="card" transition:slide>
                 <h2>Summary</h2>
 
@@ -193,11 +206,11 @@
                         ❮❮
                     </button>
 
-                    <p>{selected_timetable + 1}/{timetables.length}</p>
+                    <p>{selected_timetable + 1}/{generated_timetables.length}</p>
 
                     <button
                         on:click={() => selected_timetable++}
-                        disabled={selected_timetable + 1 >= timetables.length}
+                        disabled={selected_timetable + 1 >= generated_timetables.length}
                     >
                         ❯❯
                     </button>
@@ -206,9 +219,14 @@
         {/if}
     </div>
     <div id="result" class="card">
-        {#if timetables !== null && timetables.length > selected_timetable}
+        {#if generated_timetables !== null && generated_timetables.length > selected_timetable && customisable_timetable == null}
             <Calendar
-                timetable={timetables[selected_timetable]}
+                timetable={generated_timetables[selected_timetable]}
+                subjects={class_codes}
+            />
+        {:else if customisable_timetable !== null && generated_timetables == null}
+            <CustomisableCalendar
+                timetable={customisable_timetable}
                 subjects={class_codes}
             />
         {/if}
@@ -264,9 +282,9 @@
         position: relative;
     }
 
-    #generate_button {
+    #generate_button, #customiser_button {
         width: 100%;
-        margin: 0;
+        margin: 1px;
     }
 
     #navigation {
