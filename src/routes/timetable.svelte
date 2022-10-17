@@ -1,10 +1,8 @@
 <script>
+    import { text_colouriser } from "$lib/utils/colours";
     import { format_time } from "$lib/utils/format";
 
     const SUBJECT_PADDING = 0.25;
-    const LUMINANCE_VALUES = [0.2126, 0.7152, 0.0722];
-    const SRGB_THRESHOLD = 0.03928;
-    const LUMINANCE_THRESHOLD = 0.1791;
 
     const pallette = [
         "#001f3f",
@@ -15,25 +13,7 @@
         "#FF851B",
         "#FFDC00",
         "#3D9970",
-    ].map((c) => {
-        let luminance = c
-            .match(/^#(\w{2})(\w{2})(\w{2})/)
-            .slice(1)
-            .reduce((total, d, i) => {
-                d = parseInt(d, 16);
-                let srgb = d / 255;
-
-                if (srgb <= SRGB_THRESHOLD) d = srgb / 12.92;
-                else d = Math.pow((srgb + 0.055) / 1.055, 2.4);
-
-                return total + d * LUMINANCE_VALUES[i];
-            }, 0);
-
-        return {
-            color: c,
-            text: luminance > LUMINANCE_THRESHOLD ? "black" : "white",
-        };
-    });
+    ].map(text_colouriser);
 
     const subjects = [
         [
