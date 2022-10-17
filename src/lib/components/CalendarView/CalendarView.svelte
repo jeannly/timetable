@@ -2,7 +2,7 @@
     export let timetable;
     export let subjects;
 
-    import { format_time, format_duration } from "$lib/format";
+    import { format_time, format_duration } from "$lib/utils/format";
 
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
     const SUBJECT_PADDING = 0.25;
@@ -93,6 +93,9 @@
     );
 </script>
 
+<style lang="scss" src="./CalendarView.scss" global>
+</style>
+
 <div id="calendar">
     {#each days as day, i}
         <div class="day">
@@ -151,79 +154,3 @@
         </div>
     {/each}
 </div>
-
-<style>
-    #calendar {
-        height: 100%;
-        width: 100%;
-
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: 1fr;
-
-        gap: var(--spacing);
-    }
-
-    .day {
-        height: 100%;
-
-        display: flex;
-        flex-direction: column;
-    }
-
-    .header {
-        text-align: center;
-    }
-
-    .ticks {
-        position: absolute;
-
-        top: 0;
-        left: 0;
-
-        height: 100%;
-        width: 100%;
-
-        display: flex;
-        flex-direction: column;
-    }
-
-    .ticks > * {
-        flex-grow: 1;
-        border-top: 2px dashed #dddddd;
-    }
-
-    .subjects {
-        flex-grow: 1;
-        flex-basis: 0;
-
-        position: relative;
-    }
-
-    .subject {
-        position: absolute;
-        width: 100%;
-
-        box-sizing: border-box;
-
-        padding: 0.75rem;
-        border-radius: var(--border-radius);
-
-        display: flex;
-        flex-direction: column;
-
-        overflow: scroll;
-    }
-
-    .subject > * {
-        margin: 0.1rem 0;
-    }
-
-    .subject > h5 {
-        overflow: hidden;
-    }
-
-    .subject > p {
-        font-size: 0.9rem;
-    }
-</style>

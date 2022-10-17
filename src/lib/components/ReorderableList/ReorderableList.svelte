@@ -1,5 +1,6 @@
 <script>
-    import { format_text } from "$lib/format";
+    // Originally Order.svelte
+    import { format_text } from "$lib/utils/format";
     import { slide } from "svelte/transition";
 
     export let options;
@@ -37,6 +38,9 @@
         rankings = [...new_order];
     }
 </script>
+
+<style lang="scss" src="./ReorderableList.scss" global>
+</style>
 
 <div id="container">
     {#each sorted_options as item, i}
@@ -98,68 +102,3 @@
         </div>
     {/if}
 </div>
-
-<style>
-    #container {
-        counter-reset: item-counter;
-
-        border: 1px solid #aaaaaa;
-        border-radius: var(--border-radius)
-    }
-
-    .numbered > p::before {
-        content: "⸬ " counter(item-counter) ". ";
-        counter-increment: item-counter;
-        color: #aaaaaa;
-
-        transition: color var(--transition);
-    }
-
-    .numbered:hover > p::before {
-        color: var(--main);
-    }
-
-    .item {
-        user-select: none;
-        box-sizing: border-box;
-
-        cursor: pointer;
-
-        padding: 0.5rem;
-
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-
-        font-size: 0.9rem;
-    }
-
-    .item:not(:first-child) {
-        border-top: 1px solid #aaaaaa;
-    }
-
-    .item > p {
-        margin: 0;
-    }
-
-    .item.hovered {
-        border-top: 2px solid var(--main);
-    }
-
-    .item.hovered:first-child {
-        border-radius: var(--border-radius);
-    }
-
-    select {
-        background: none;
-        border: none;
-
-        padding: 0;
-        margin: 0;
-
-        cursor: pointer;
-
-        text-align: right;
-    }
-</style>

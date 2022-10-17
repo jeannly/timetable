@@ -1,17 +1,15 @@
 <script>
     import { page } from "$app/stores";
-    import generate from "$lib/generate";
+    import generate from "$lib/utils/generate";
     import { slide } from "svelte/transition";
 
-    import Calendar from "$lib/components/Calendar.svelte";
-    import Order from "$lib/components/Order.svelte";
+    import CalendarView from "$lib/components/CalendarView";
+    import ReorderableList from "$lib/components/ReorderableList";
     import links from "$lib/links";
-import CustomisableCalendar from "$lib/components/CustomisableCalendar.svelte";
 
     let rankings = [];
     let parameters = {};
 
-    let customisable_timetable = null;
     let generated_timetables = null;
     let log = [];
     let selected_timetable = 0;
@@ -103,7 +101,6 @@ import CustomisableCalendar from "$lib/components/CustomisableCalendar.svelte";
     }
 
     function run_generate() {
-        customisable_timetable = null;
         generated_timetables = null;
 
         generated_timetables = generate(decoded.filter(s => s.semester === selected_semester), {
@@ -114,13 +111,7 @@ import CustomisableCalendar from "$lib/components/CustomisableCalendar.svelte";
         selected_timetable = 0;
     }
     function run_customiser() {
-        customisable_timetable = null;
         generated_timetables = null;
-        
-        customisable_timetable = generate(decoded.filter(s => s.semester === selected_semester), {
-            rankings,
-            parameters,
-        })[1];
     }
 </script>
 
@@ -154,7 +145,7 @@ import CustomisableCalendar from "$lib/components/CustomisableCalendar.svelte";
             </p>
 
             <div>
-                <Order
+                <ReorderableList
                     options={[
                         {
                             key: "campus",
@@ -219,14 +210,9 @@ import CustomisableCalendar from "$lib/components/CustomisableCalendar.svelte";
         {/if}
     </div>
     <div id="result" class="card">
-        {#if generated_timetables !== null && generated_timetables.length > selected_timetable && customisable_timetable == null}
-            <Calendar
+        {#if generated_timetables !== null && generated_timetables.length > selected_timetable}
+            <CalendarView
                 timetable={generated_timetables[selected_timetable]}
-                subjects={class_codes}
-            />
-        {:else if customisable_timetable !== null && generated_timetables == null}
-            <CustomisableCalendar
-                timetable={customisable_timetable}
                 subjects={class_codes}
             />
         {/if}

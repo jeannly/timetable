@@ -1,5 +1,5 @@
 <script>
-    import { format_time } from "$lib/format";
+    import { format_time } from "$lib/utils/format";
 
     const SUBJECT_PADDING = 0.25;
     const LUMINANCE_VALUES = [0.2126, 0.7152, 0.0722];
