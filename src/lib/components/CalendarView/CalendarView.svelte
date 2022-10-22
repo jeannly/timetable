@@ -1,32 +1,17 @@
 <script>
     export let timetable;
-    export let subjects;
+    export let all_subject_ids;
+    export let mode; // "default": generate fixed timetables, "customiser": drag and drop
 
-    import { text_colouriser } from '$lib/utils/colours';
-    import { format_time, format_duration } from "$lib/utils/format";
+    import { convert_by_subject_timetable_to_by_day_timetable } from "$lib/utils/generate";
+    import { get_palette_from_subject_codes } from "$lib/utils/colours";
+    import { format_duration } from "$lib/utils/format";
+    import CalendarItem from "../CalendarItem";
 
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-    const SUBJECT_PADDING = 0.25;
+    const PALETTE = get_palette_from_subject_codes(all_subject_ids);
 
-    const PALETTE = [
-        "#001f3f",
-        "#0074D9",
-        "#B10DC9",
-        "#85144b",
-        "#FF4136",
-        "#FF851B",
-        "#FFDC00",
-        "#3D9970",
-    ].map(text_colouriser);
-
-    $: days = timetable.reduce(
-        (days, subject) => [
-            ...days.slice(0, subject.day),
-            [...days[subject.day], subject],
-            ...days.slice(subject.day + 1),
-        ],
-        DAYS.map((_) => [])
-    );
+    $: days = convert_by_subject_timetable_to_by_day_timetable(timetable);
 
     $: summaries = days.map((day) => {
         let { start, end, time } = day.reduce(
@@ -83,7 +68,7 @@
                 <h3>{DAYS[i]}</h3>
                 <p>{summaries[i]}</p>
             </div>
-            <div class="subjects">
+            <div class="column">
                 <div class="ticks">
                     {#each Array(Math.floor((times.end - times.start) / 60)) as _}
                         <div />
@@ -94,41 +79,14 @@
                         />
                     {/if}
                 </div>
-
+<!-- TODO: Change how the subject overlays are rendered when in customiser mode -->
                 {#each day as subject, j}
-                    <div
-                        class="subject"
-                        style:height="calc({(subject.duration /
-                            (times.end - times.start)) *
-                            100}% - {SUBJECT_PADDING * 2}rem)"
-                        style:top="calc({((subject.time - times.start) /
-                            (times.end - times.start)) *
-                            100}% + {SUBJECT_PADDING}rem)"
-                        style:background={PALETTE[
-                            subjects.findIndex((s) => s.code === subject.code) %
-                                PALETTE.length
-                        ].color}
-                        style:color={PALETTE[
-                            subjects.findIndex((s) => s.code === subject.code) %
-                                PALETTE.length
-                        ].text}
-                    >
-                        <h5>
-                            {subjects.find((s) => s.code === subject.code).name}
-                            ({subject.code})
-                        </h5>
-                        <p>
-                            {subject.name}, {subject.campus}
-                            {subject.popularity !== null
-                                ? `(${subject.popularity}%)`
-                                : ""}
-                        </p>
-                        <p>
-                            {format_time(subject.time)} - {format_time(
-                                subject.time + subject.duration
-                            )}
-                        </p>
-                    </div>
+                    <CalendarItem 
+                        subject={subject}
+                        subject_id={all_subject_ids.find((subject_id) => subject_id.code === subject.code)} 
+                        times={times}
+                        background_colour={PALETTE[subject.code]}
+                    />
                 {/each}
             </div>
         </div>

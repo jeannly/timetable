@@ -1,6 +1,6 @@
 <script>
     import { page } from "$app/stores";
-    import generate from "$lib/utils/generate";
+    import { generate } from "$lib/utils/generate";
     import { slide } from "svelte/transition";
 
     import CalendarView from "$lib/components/CalendarView";
@@ -14,6 +14,7 @@
     let log = [];
     let selected_timetable = 0;
     let selected_semester = undefined;
+    let view_mode = "default"; // Determines whether to render CalendarView in drag and drop mode
     
     let decoded = null;
     
@@ -100,18 +101,16 @@
         }
     }
 
-    function run_generate() {
+    function run_generate(mode="default") {
+        // Either "default", or "customiser", which renders drag and drop mode.
+        view_mode = mode;
         generated_timetables = null;
 
         generated_timetables = generate(decoded.filter(s => s.semester === selected_semester), {
             rankings,
             parameters,
         });
-
         selected_timetable = 0;
-    }
-    function run_customiser() {
-        generated_timetables = null;
     }
 </script>
 
@@ -182,7 +181,7 @@
             {/if}
 
             <button id="generate_button" on:click={run_generate}> Generate </button>
-            <button id="customiser_button" on:click={run_customiser}> Customise own timetable </button>
+            <button id="customiser_button" on:click={run_generate("customiser")}> Customise own timetable </button>
         </div>
 
         {#if generated_timetables !== null && generated_timetables.length > 0}
@@ -213,7 +212,8 @@
         {#if generated_timetables !== null && generated_timetables.length > selected_timetable}
             <CalendarView
                 timetable={generated_timetables[selected_timetable]}
-                subjects={class_codes}
+                all_subject_ids={class_codes}
+                mode={view_mode}
             />
         {/if}
     </div>
