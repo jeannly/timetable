@@ -12,7 +12,11 @@
   import { format_time } from "$lib/utils/format";
   
   const SUBJECT_PADDING = 0.25;
-  
+    
+  function set_subject_options(visible) {
+    return;
+  }
+
   $: customisable = mode === "customiser" ? true : false;
 
   $: text_colour = text_colouriser(background_colour).text_colour;
@@ -46,8 +50,10 @@
 </div>
 {:else}
 <div
-  use:draggable
-  class="subject"
+  use:draggable={{ bounds: document.querySelector('#calendar') }}
+  on:mouseenter={() => (set_subject_options("visible"))}
+  on:mouseleave={() => (set_subject_options("hidden"))}
+  class="subject draggable"
   style:height="calc({(subject.duration / (times.end - times.start)) * 100}% - {SUBJECT_PADDING *
     2}rem)"
   style:top="calc({((subject.time - times.start) / (times.end - times.start)) *

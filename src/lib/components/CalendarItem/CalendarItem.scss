@@ -36,6 +36,18 @@
   flex-direction: column;
 
   overflow: scroll;
+  
+  &.draggable {
+    transition: filter 0.5s;
+    &:hover {
+      cursor: grab;
+      filter: brightness(85%);
+      transition: filter 0.5s;
+    }
+    &.neodrag-dragging {
+      cursor: grabbing;
+    }
+  }
 }
 
 .subject > * {
