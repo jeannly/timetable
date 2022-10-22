@@ -180,11 +180,11 @@
                 </div>
             {/if}
 
-            <button id="generate_button" on:click={run_generate}> Generate </button>
-            <button id="customiser_button" on:click={run_generate("customiser")}> Customise own timetable </button>
+            <button id="generate_button" on:click={() => run_generate()}> Generate </button>
+            <button id="customiser_button" on:click={() => run_generate("customiser")}> Customise own timetable </button>
         </div>
 
-        {#if generated_timetables !== null && generated_timetables.length > 0}
+        {#if generated_timetables !== null && generated_timetables.length > 0 && view_mode === "default"}
             <div id="summary" class="card" transition:slide>
                 <h2>Summary</h2>
 

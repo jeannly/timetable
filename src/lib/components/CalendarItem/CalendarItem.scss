@@ -23,6 +23,7 @@
   position: relative;
 }
 .subject {
+  z-index: 100; // enables subjects to be rendered over day columns
   position: absolute;
   width: 100%;
 

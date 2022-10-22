@@ -32,8 +32,8 @@ const text_colouriser = (background_hexcode) => {
       }, 0);
 
   return {
-      color: background_hexcode,
-      text: luminance > LUMINANCE_THRESHOLD ? "black" : "white",
+      colour: background_hexcode,
+      text_colour: luminance > LUMINANCE_THRESHOLD ? "black" : "white",
   };
 };
 

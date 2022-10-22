@@ -3,6 +3,8 @@
     export let all_subject_ids;
     export let mode; // "default": generate fixed timetables, "customiser": drag and drop
 
+    import { draggable } from "@neodrag/svelte";
+
     import { convert_by_subject_timetable_to_by_day_timetable } from "$lib/utils/generate";
     import { get_palette_from_subject_codes } from "$lib/utils/colours";
     import { format_duration } from "$lib/utils/format";
@@ -86,6 +88,7 @@
                         subject_id={all_subject_ids.find((subject_id) => subject_id.code === subject.code)} 
                         times={times}
                         background_colour={PALETTE[subject.code]}
+                        mode={mode}
                     />
                 {/each}
             </div>
