@@ -1,10 +1,6 @@
-const DAYS = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday"
-];
+// Any functions relating to generating timetables
+
+const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
 function permutate(options) {
     if (options.length === 1) return options[0].times.map(time => [{
@@ -108,7 +104,7 @@ const PENALTIES = {
     }
 }
 
-export default function generate(classes, {
+function generate(classes, {
     amount = 10,
     log = console.log,
     rankings,
@@ -162,3 +158,17 @@ export default function generate(classes, {
 
     return timetables.map(({ timetable }) => timetable);
 }
+
+// timetable is an array of chosen subjects (i.e. a generated timetable)
+function convert_by_subject_timetable_to_by_day_timetable(timetable) {
+    return timetable.reduce(
+    (days, subject) => [
+        ...days.slice(0, subject.day),
+        [...days[subject.day], subject],
+        ...days.slice(subject.day + 1),
+    ],
+    DAYS.map((_) => [])
+    );
+}
+
+export { generate, convert_by_subject_timetable_to_by_day_timetable };

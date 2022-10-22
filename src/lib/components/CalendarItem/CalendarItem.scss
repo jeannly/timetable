@@ -1,0 +1,50 @@
+.ticks {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.ticks > * {
+  flex-grow: 1;
+  border-top: 2px dashed #dddddd;
+}
+
+.column {
+  flex-grow: 1;
+  flex-basis: 0;
+
+  position: relative;
+}
+.subject {
+  position: absolute;
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: scroll;
+}
+
+.subject > * {
+  margin: 0.1rem 0;
+}
+
+.subject > h5 {
+  overflow: hidden;
+}
+
+.subject > p {
+  font-size: 0.9rem;
+}

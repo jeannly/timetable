@@ -13,7 +13,7 @@
         let token = url.searchParams.get(TOKEN_NAME);
 
         let path_base = window.location.pathname.split("/").slice(0, -1).join("/");
-
+        console.log(path_base);
         return ["activities", "popularities"].reduce((obj, type) => ({
             ...obj,
             [type]: new URL(

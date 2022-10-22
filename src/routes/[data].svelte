@@ -1,19 +1,20 @@
 <script>
     import { page } from "$app/stores";
-    import generate from "$lib/generate";
+    import { generate } from "$lib/utils/generate";
     import { slide } from "svelte/transition";
 
-    import Calendar from "$lib/components/Calendar.svelte";
-    import Order from "$lib/components/Order.svelte";
+    import CalendarView from "$lib/components/CalendarView";
+    import ReorderableList from "$lib/components/ReorderableList";
     import links from "$lib/links";
 
     let rankings = [];
     let parameters = {};
 
-    let timetables = null;
+    let generated_timetables = null;
     let log = [];
     let selected_timetable = 0;
     let selected_semester = undefined;
+    let view_mode = "default"; // Determines whether to render CalendarView in drag and drop mode
     
     let decoded = null;
     
@@ -22,9 +23,9 @@
     let semester_options = [];
 
     $: if (
-        timetables !== null &&
-        timetables.length > 0 &&
-        selected_timetable >= timetables.length
+        generated_timetables !== null &&
+        generated_timetables.length > 0 &&
+        selected_timetable >= generated_timetables.length
     ) {
         selected_timetable = 0;
     }
@@ -100,14 +101,15 @@
         }
     }
 
-    function run() {
-        timetables = null;
+    function run_generate(mode="default") {
+        // Either "default", or "customiser", which renders drag and drop mode.
+        view_mode = mode;
+        generated_timetables = null;
 
-        timetables = generate(decoded.filter(s => s.semester === selected_semester), {
+        generated_timetables = generate(decoded.filter(s => s.semester === selected_semester), {
             rankings,
             parameters,
         });
-
         selected_timetable = 0;
     }
 </script>
@@ -142,7 +144,7 @@
             </p>
 
             <div>
-                <Order
+                <ReorderableList
                     options={[
                         {
                             key: "campus",
@@ -178,10 +180,11 @@
                 </div>
             {/if}
 
-            <button id="generate_button" on:click={run}> Generate </button>
+            <button id="generate_button" on:click={run_generate}> Generate </button>
+            <button id="customiser_button" on:click={run_generate("customiser")}> Customise own timetable </button>
         </div>
 
-        {#if timetables !== null && timetables.length > 0}
+        {#if generated_timetables !== null && generated_timetables.length > 0}
             <div id="summary" class="card" transition:slide>
                 <h2>Summary</h2>
 
@@ -193,11 +196,11 @@
                         ❮❮
                     </button>
 
-                    <p>{selected_timetable + 1}/{timetables.length}</p>
+                    <p>{selected_timetable + 1}/{generated_timetables.length}</p>
 
                     <button
                         on:click={() => selected_timetable++}
-                        disabled={selected_timetable + 1 >= timetables.length}
+                        disabled={selected_timetable + 1 >= generated_timetables.length}
                     >
                         ❯❯
                     </button>
@@ -206,10 +209,11 @@
         {/if}
     </div>
     <div id="result" class="card">
-        {#if timetables !== null && timetables.length > selected_timetable}
-            <Calendar
-                timetable={timetables[selected_timetable]}
-                subjects={class_codes}
+        {#if generated_timetables !== null && generated_timetables.length > selected_timetable}
+            <CalendarView
+                timetable={generated_timetables[selected_timetable]}
+                all_subject_ids={class_codes}
+                mode={view_mode}
             />
         {/if}
     </div>
@@ -264,9 +268,9 @@
         position: relative;
     }
 
-    #generate_button {
+    #generate_button, #customiser_button {
         width: 100%;
-        margin: 0;
+        margin: 1px;
     }
 
     #navigation {
