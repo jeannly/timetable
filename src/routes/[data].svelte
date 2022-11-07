@@ -3,8 +3,8 @@
     import { generate } from "$lib/utils/generate";
     import { slide } from "svelte/transition";
 
-    import CalendarView from "$lib/components/CalendarView";
-    import ReorderableList from "$lib/components/ReorderableList";
+    import CalendarView from "$lib/components/CalendarView.svelte";
+    import ReorderableList from "$lib/components/ReorderableList.svelte";
     import links from "$lib/links";
 
     let rankings = [];

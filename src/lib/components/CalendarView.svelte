@@ -8,7 +8,7 @@
     import { convert_by_subject_timetable_to_by_day_timetable } from "$lib/utils/generate";
     import { get_palette_from_subject_codes } from "$lib/utils/colours";
     import { format_duration } from "$lib/utils/format";
-    import CalendarItem from "../CalendarItem";
+    import CalendarItem from "./CalendarItem.svelte";
 
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
     const PALETTE = get_palette_from_subject_codes(all_subject_ids);
