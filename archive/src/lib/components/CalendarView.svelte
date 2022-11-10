@@ -8,10 +8,14 @@
     import { convert_by_subject_timetable_to_by_day_timetable } from "$lib/utils/generate";
     import { get_palette_from_subject_codes } from "$lib/utils/colours";
     import { format_duration } from "$lib/utils/format";
-    import CalendarItem from "./CalendarItem.svelte";
+    import Subject from "./Subject.svelte";
 
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
     const PALETTE = get_palette_from_subject_codes(all_subject_ids);
+
+    // Dimensions to be passed to the subject containers, so they can be sized accordingly
+    let cal_width = 0;
+    let cal_height = 0;
 
     $: days = convert_by_subject_timetable_to_by_day_timetable(timetable);
 
@@ -63,7 +67,7 @@
 <style lang="scss" src="./CalendarView.scss" global>
 </style>
 
-<div id="calendar">
+<div id="calendar" bind:clientWidth={cal_width} bind:clientHeight={cal_height}>
     {#each days as day, i}
         <div class="day">
             <div class="header">
@@ -83,12 +87,14 @@
                 </div>
 <!-- TODO: Change how the subject overlays are rendered when in customiser mode -->
                 {#each day as subject, j}
-                    <CalendarItem 
+                    <Subject 
                         subject={subject}
                         subject_id={all_subject_ids.find((subject_id) => subject_id.code === subject.code)} 
                         times={times}
                         background_colour={PALETTE[subject.code]}
                         mode={mode}
+                        cal_width={cal_width}
+                        cal_height={cal_height}
                     />
                 {/each}
             </div>
