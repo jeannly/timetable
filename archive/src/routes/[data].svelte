@@ -220,58 +220,16 @@
 </div>
 
 <style>
-    #container {
-        height: 100%;
-        width: 100%;
 
-        display: flex;
-        flex-direction: row;
 
-        gap: var(--spacing);
-        padding: var(--spacing);
 
-        box-sizing: border-box;
 
-        background: #dddddd;
-    }
-
-    .card {
-        background: white;
-
-        padding: var(--spacing);
-
-        border-radius: var(--border-radius);
-    }
-
-    .card > p {
-        font-size: 0.85rem;
-    }
-
-    .card > *:not(:last-child) {
-        margin-bottom: var(--spacing);
-    }
-
-    #column {
-        display: flex;
-        flex-direction: column;
-
-        overflow-y: scroll;
-
-        gap: var(--spacing);
-
-        width: 20%;
-        max-width: 25rem;
-    }
 
     #result {
         flex-grow: 1;
         position: relative;
     }
 
-    #generate_button, #customiser_button {
-        width: 100%;
-        margin: 1px;
-    }
 
     #navigation {
         display: flex;
@@ -280,28 +238,6 @@
         align-items: center;
     }
 
-    #header {
-        text-align: center;
-    }
-
-    #header > h1 > a {
-        text-decoration: none;
-        color: black;
-    }
-
-    #links {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    #links > p {
-        padding: 0 1rem;
-    }
-
-    #links > p:not(:last-child) {
-        border-right: 2px dashed black;
-    }
 
     #select_semester {
         border: 1px solid #aaaaaa;

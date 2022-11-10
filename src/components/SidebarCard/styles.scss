@@ -1,0 +1,26 @@
+@use '../../css/vars' as v;
+
+.SidebarCard {
+  background: white;
+
+  padding: v.$spacing-default;
+
+  border-radius: v.$border-radius-default;
+
+  > h1 {
+    text-align: center;
+  }
+  
+  > p {
+    font-size: 0.85rem;
+  }
+
+  > button {
+    width: 100%;
+    margin: 1px;
+  }
+
+  > *:not(:last-child) {
+    margin-bottom: v.$spacing-default;
+  }
+}
