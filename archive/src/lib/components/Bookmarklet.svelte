@@ -1,6 +1,10 @@
 <script>
     import { page } from "$app/stores";
 
+    // Get the URL of the page this was originally rendered on (our server). Store into window
+    //   so that the bookmarklet will link to the bookmarklet.js, hosted by our server.
+    // I think we can't use window.location.origin because that will result in our current page URL
+    //   (Allocate+ timetable) being used.
     const bookmarklet_code = `
 (() => {
     window.ando_generator_url = "${$page.url.origin}";

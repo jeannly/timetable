@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#bookmarklet {
+  text-align: center;
+  padding: 10px 0;
+  background-color: #DDDDDD;
+}
+#bookmarklet a {
+  background-color: #FFFFFF;
+  color: #0074D9;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: grab;
+}

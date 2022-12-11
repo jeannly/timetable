@@ -1,30 +1,20 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.scss';
 
-// Components
-import Sidebar from './components/Sidebar';
-import SidebarCard from './components/SidebarCard';
-import Calendar from './components/Calendar';
-import Button from './components/Button';
+// Views
+import LandingPage from './views/LandingPage';
+import TimetableApp from './views/TimetableApp';
 
 function App() {
-
   return (
-    <div className="App">
-      <Sidebar>
-        <SidebarCard>
-          <h1>Hello!</h1>
-          <p>This is some text.</p>
-          <Button />
-        </SidebarCard>
-        <SidebarCard>
-          This is another card.
-        </SidebarCard>
-      </Sidebar>
-      <main id="content">
-        <Calendar />
-      </main>
-    </div>
+    <Router>
+    <Route exact path="/">
+      <LandingPage />
+    </Route>
+    <Route path="/app">
+      <TimetableApp />
+    </Route>
+    </Router>
   );
 }
 
