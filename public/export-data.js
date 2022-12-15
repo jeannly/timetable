@@ -1,21 +1,23 @@
 // Exports data from an authenticated Allocate+ session into our app.
 
+/*
+Glossary of Allocate data terms:
+
+groups:  a class within a course
+    e.g. a lectorial ('LTL03'), or lab ('PRA01')
+activities: the timetable options for a group 
+    e.g. Fri 2pm online; or Tues 10am in building 8
+semester_description: the human-readable name for a semester, rather than its numerical code
+*/
 (() => {
   const TOKEN_NAME = "ss";
-  const DAYS = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday"
-  ];
 
+  // subject = the subject code (e.g. EEET2250)
   function generate_urls(subject, group) {
       let url = new URL(window.location.href);
       let token = url.searchParams.get(TOKEN_NAME);
 
       let path_base = window.location.pathname.split("/").slice(0, -1).join("/");
-      console.log(path_base);
       return ["activities", "popularities"].reduce((obj, type) => ({
           ...obj,
           [type]: new URL(
@@ -59,6 +61,14 @@
       }
   }
 
+  const reduce_object_to_subset = (object, ...desired_properties) => {
+    for (let property in object) {
+        if (!desired_properties.includes(property)) {
+            delete object[property];
+        }
+    }
+  };
+
   async function run() {
       console.log("Running");
 
@@ -67,92 +77,67 @@
           update
       } = create_window();
 
-      // Determine available semesters
-      console.log("Available Semesters");
-
-      let campus_options = [];
-      let class_codes = [];
-      let semester_options = [];
-      let classes = [];
-
+      // Determine available semesters, and populate them with their respective courses + course data
       try {
-          for (let course of Object.values(window.data.student.student_enrolment)) {
-              console.log(`Downloading ${course.description}`);
+        /* This is where Allocate+ stores all a student's courses, within their respective semesters, when we first login.
+            However, it does not store the timetable options (i.e. activities) for each course.
+        */
+        let available_semesters = window.data.student.student_enrolment_sem;
+        
+        // Populate each course in each semester with their classes' timetable options
+        for (let semester_name in available_semesters) {
+            for (let course_name in available_semesters[semester_name]) {
+                let course = available_semesters[semester_name][course_name];
+                // Populate each course with its activities and popularities.
+                for (let group_name in course.groups) {
+                    let group = course.groups[group_name];
 
-              if (!class_codes.includes(course.callista_code)) {
-                  class_codes.push([
-                      // Code
-                      course.callista_code,
-                      // Name
-                      course.description,
-                  ]);
-              }
+                    // 1. Fetch activities and popularities
+                    let {
+                        activities: activities_url,
+                        popularities: popularities_url
+                    } = generate_urls(group.subject_code, group.activity_group_code);
 
-              if (!semester_options.includes(course.semester_description)) {
-                  semester_options.push(course.semester_description);
-              }
+                    let [activities_request, popularities_request] = await Promise.all([
+                        fetch(activities_url),
+                        fetch(popularities_url)
+                    ]);
 
-              for (let group of Object.values(course.groups)) {
-                  console.log(`Downloading group ${group.description}`);
+                    group.popularities = popularities_request.status === 200 ? await popularities_request.json() : null;
+                    if (activities_request.status !== 200) {
+                        throw "Problem retreiving data. Please refresh the page and try again. If the problem persists, please open a new issue on Github.";
+                    } 
 
-                  let {
-                      activities: activities_url,
-                      popularities: popularities_url
-                  } = generate_urls(course.subject_code, group.activity_group_code);
+                    let activities = await activities_request.json();
+                    for (let activity in activities) {
+                        reduce_object_to_subset(activities[activity], 
+                            'campus_description',
+                            'campus',
+                            'day_of_week',
+                            'duration',
+                            'location',
+                            'start_time');
+                    }
 
-                  let [activities_request, popularities_request] = await Promise.all([
-                      fetch(activities_url),
-                      fetch(popularities_url)
-                  ]);
+                    // 2. Assign to our mass blob of data, and whittle down group data we don't need in our app
+                    group.activities = {};
+                    Object.assign(group.activities, activities);
+                    reduce_object_to_subset(group,
+                        'activities',
+                        'description',
+                        'popularities');
+                }
+                reduce_object_to_subset(course, 
+                    'callista_code',
+                    'description',
+                    'groups');
+            }
+        }
+        console.log(available_semesters);
+        let encoded_data = btoa(JSON.stringify(available_semesters));
+        window.open(`${window.secret_injected_app_url}/app?data=${encoded_data}`, "_blank").focus();
 
-                  if (activities_request.status === 200) {
-                      let activities = await activities_request.json();
-                      let popularities = popularities_request.status === 200 ? await popularities_request.json() : null;
-
-                      let subject = [
-                          // Name
-                          group.description,
-                          // Subject Code,
-                          class_codes.findIndex(c => c[0] === course.callista_code),
-                          // Semester
-                          semester_options.indexOf(course.semester_description),
-                          // Times
-                          Object.values(activities).map((time, i) => {
-                              if (!campus_options.includes(time.campus_description)) {
-                                  campus_options.push(time.campus_description);
-                              }
-
-                              let campus_id = campus_options.indexOf(time.campus_description);
-
-                              return [
-                                  // Day
-                                  DAYS.indexOf(DAYS.find(d => d.indexOf(time.day_of_week) === 0)),
-                                  // Time
-                                  time.start_time.split(":").reduce((total, n, j) => (
-                                      total + (Number(n) * [60, 1][j])
-                                  ), 0),
-                                  // Length
-                                  Number(time.duration),
-                                  // Campus
-                                  campus_id,
-                                  // Popularities
-                                  popularities !== null ? (
-                                      popularities[`activity: ${time.activity_code}`]?.popularity ?? null
-                                  ) : null
-                              ];
-                          })
-                      ];
-
-                      classes.push(subject);
-                  } else throw "Problem retreiving data. Please refresh the page and try again. If the problem persists, please open a new issue on Github.";
-              }
-          }
-
-          let encoded_data = btoa(JSON.stringify([campus_options, class_codes, semester_options, classes]));
-
-          window.open(`${window.secret_injected_app_url}/app?data=${encoded_data}`, "_blank").focus();
-
-          close();
+        close();
       } catch (e) {
           update(e);
       }
