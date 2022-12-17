@@ -1,4 +1,7 @@
 @use './vars' as v;
+main {
+  width: auto;
+}
 
 //Button
 button {
@@ -41,7 +44,7 @@ button:not([disabled]):hover {
 }
 
 // SidebarCard
-.SidebarCard {
+.sidebar-card {
   background: white;
 
   padding: v.$spacing-default;
@@ -67,30 +70,49 @@ button:not([disabled]):hover {
 }
 
 //Calendar
-.Calendar {
-  height: 100%;
+.calendar {
+  background-color: white;
+  border-radius: v.$border-radius-default;
+  padding: v.$spacing-default;
+  width: 100%;
 
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr;
 
   gap: var(--spacing);
-
-  background-color: white;
-  border-radius: v.$border-radius-default;
-  padding: v.$spacing-default;
-
 }
 
-.Column {
-  height: 100%;
+.day {
+  &.title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+  }
+}
 
+.background-cell {
+  border-top: 1px dashed v.$background-colour;
+
+}
+// Dropdown
+.dropdown {
   display: flex;
-  flex-direction: column;
-}
+  padding: 2px;
+  border: 1px solid v.$action-colour;
+  border-radius: v.$border-radius-default;
 
-.Header {
-  text-align: center;
-  font-weight: 700;
-  font-size: 18px;
+  select {
+    padding: 0.3rem 0.75rem;
+    border: none;
+    appearance: none;
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    z-index: 1;
+    color: v.$action-colour;
+  }
+  svg {
+    position: absolute;
+  }
 }

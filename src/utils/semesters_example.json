@@ -1,0 +1,590 @@
+{
+  "2102": {
+      "OENG1165_2102_1217_AUSCY": {
+          "description": "Professional Eng Experience",
+          "callista_code": "OENG1165",
+          "groups": {}
+      }
+  },
+  "HE Sem 02": {
+      "EEET2166_2250_1282_AUSCY": {
+          "description": "Real Time Systems Engineering",
+          "callista_code": "EEET2166",
+          "groups": {
+              "PRA01": {
+                  "description": "Practical",
+                  "popularities": {
+                      "Thu10:30AUSCY": {
+                          "subject_code": "EEET2166_2250_1282_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Thu",
+                          "start_time": "10:30",
+                          "popularity": 0
+                      },
+                      "Thu16:30AUSCY": {
+                          "subject_code": "EEET2166_2250_1282_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Thu",
+                          "start_time": "16:30",
+                          "popularity": 0
+                      },
+                      "Fri12:30VIRTC": {
+                          "subject_code": "EEET2166_2250_1282_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "VIRTC",
+                          "day_of_week": "Fri",
+                          "start_time": "12:30",
+                          "popularity": 0
+                      }
+                  },
+                  "activities": {
+                      "EEET2166_2250_1282_AUSCY|PRA01|01": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Thu",
+                          "start_time": "16:30",
+                          "location": "010.09.011",
+                          "duration": "120"
+                      },
+                      "EEET2166_2250_1282_AUSCY|PRA01|02": {
+                          "campus": "VIRTC",
+                          "campus_description": "Canvas",
+                          "day_of_week": "Fri",
+                          "start_time": "12:30",
+                          "location": "010.09.011.remote",
+                          "duration": "120"
+                      },
+                      "EEET2166_2250_1282_AUSCY|PRA01|03": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Thu",
+                          "start_time": "10:30",
+                          "location": "010.09.011",
+                          "duration": "120"
+                      }
+                  }
+              },
+              "WRK01": {
+                  "description": "V_Workshop",
+                  "popularities": {
+                      "Mon14:30VIRTC": {
+                          "subject_code": "EEET2166_2250_1282_AUSCY",
+                          "activity_group_code": "WRK01",
+                          "campus": "VIRTC",
+                          "day_of_week": "Mon",
+                          "start_time": "14:30",
+                          "popularity": 0
+                      }
+                  },
+                  "activities": {
+                      "EEET2166_2250_1282_AUSCY|WRK01|01": {
+                          "campus": "VIRTC",
+                          "campus_description": "Canvas",
+                          "day_of_week": "Mon",
+                          "start_time": "14:30",
+                          "location": "-",
+                          "duration": "120"
+                      }
+                  }
+              }
+          }
+      },
+      "EEET2261_2250_1291_AUSCY": {
+          "description": "Computer Architecture and Org",
+          "callista_code": "EEET2261",
+          "groups": {
+              "LTL01": {
+                  "description": "Lectorial",
+                  "popularities": {
+                      "Tue10:30AUSCY": {
+                          "subject_code": "EEET2261_2250_1291_AUSCY",
+                          "activity_group_code": "LTL01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Tue",
+                          "start_time": "10:30",
+                          "popularity": 0
+                      }
+                  },
+                  "activities": {
+                      "EEET2261_2250_1291_AUSCY|LTL01|01": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Tue",
+                          "start_time": "10:30",
+                          "location": "080.04.019",
+                          "duration": "60"
+                      }
+                  }
+              },
+              "PRA01": {
+                  "description": "Practical",
+                  "popularities": {
+                      "Thu12:30AUSCY": {
+                          "subject_code": "EEET2261_2250_1291_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Thu",
+                          "start_time": "12:30",
+                          "popularity": 0
+                      },
+                      "Tue12:30AUSCY": {
+                          "subject_code": "EEET2261_2250_1291_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Tue",
+                          "start_time": "12:30",
+                          "popularity": 0
+                      },
+                      "Tue14:30AUSCY": {
+                          "subject_code": "EEET2261_2250_1291_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Tue",
+                          "start_time": "14:30",
+                          "popularity": 0
+                      }
+                  },
+                  "activities": {
+                      "EEET2261_2250_1291_AUSCY|PRA01|01": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Tue",
+                          "start_time": "14:30",
+                          "location": "010.09.013",
+                          "duration": "120"
+                      },
+                      "EEET2261_2250_1291_AUSCY|PRA01|02": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Thu",
+                          "start_time": "12:30",
+                          "location": "010.09.013",
+                          "duration": "120"
+                      },
+                      "EEET2261_2250_1291_AUSCY|PRA01|03": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Tue",
+                          "start_time": "12:30",
+                          "location": "010.09.013",
+                          "duration": "120"
+                      }
+                  }
+              }
+          }
+      },
+      "EEET2609_2250_1328_AUSCY": {
+          "description": "Engineering Design 3",
+          "callista_code": "EEET2609",
+          "groups": {
+              "LTL01": {
+                  "description": "Lectorial",
+                  "popularities": {
+                      "Mon11:30AUSCY": {
+                          "subject_code": "EEET2609_2250_1328_AUSCY",
+                          "activity_group_code": "LTL01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Mon",
+                          "start_time": "11:30",
+                          "popularity": 0
+                      },
+                      "Mon11:30VIRTC": {
+                          "subject_code": "EEET2609_2250_1328_AUSCY",
+                          "activity_group_code": "LTL01",
+                          "campus": "VIRTC",
+                          "day_of_week": "Mon",
+                          "start_time": "11:30",
+                          "popularity": 0
+                      }
+                  },
+                  "activities": {
+                      "EEET2609_2250_1328_AUSCY|LTL01|01": {
+                          "campus": "VIRTC",
+                          "campus_description": "Canvas",
+                          "day_of_week": "Mon",
+                          "start_time": "11:30",
+                          "location": "-",
+                          "duration": "60"
+                      },
+                      "EEET2609_2250_1328_AUSCY|LTL01|02": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Mon",
+                          "start_time": "11:30",
+                          "location": "080.02.002",
+                          "duration": "60"
+                      }
+                  }
+              }
+          }
+      }
+  },
+  "HE Sem 01": {
+      "EEET2096_2210_1279_AUSCY": {
+          "description": "Embedded System Design & Impl",
+          "callista_code": "EEET2096",
+          "groups": {
+              "LTL01": {
+                  "description": "Lectorial",
+                  "popularities": {
+                      "Mon13:30AUSCY": {
+                          "subject_code": "EEET2096_2210_1279_AUSCY",
+                          "activity_group_code": "LTL01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Mon",
+                          "start_time": "13:30",
+                          "popularity": 0
+                      },
+                      "Thu15:30VIRTC": {
+                          "subject_code": "EEET2096_2210_1279_AUSCY",
+                          "activity_group_code": "LTL01",
+                          "campus": "VIRTC",
+                          "day_of_week": "Thu",
+                          "start_time": "15:30",
+                          "popularity": 0
+                      }
+                  },
+                  "activities": {
+                      "EEET2096_2210_1279_AUSCY|LTL01|01": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Mon",
+                          "start_time": "13:30",
+                          "location": "008.11.068",
+                          "duration": "60"
+                      },
+                      "EEET2096_2210_1279_AUSCY|LTL01|02": {
+                          "campus": "VIRTC",
+                          "campus_description": "Canvas",
+                          "day_of_week": "Thu",
+                          "start_time": "15:30",
+                          "location": "-",
+                          "duration": "60"
+                      }
+                  }
+              },
+              "PRA01": {
+                  "description": "Practical",
+                  "popularities": {
+                      "Fri11:30AUSCY": {
+                          "subject_code": "EEET2096_2210_1279_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Fri",
+                          "start_time": "11:30",
+                          "popularity": 0
+                      },
+                      "Thu11:30AUSCY": {
+                          "subject_code": "EEET2096_2210_1279_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Thu",
+                          "start_time": "11:30",
+                          "popularity": 0
+                      },
+                      "Wed11:30AUSCY": {
+                          "subject_code": "EEET2096_2210_1279_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Wed",
+                          "start_time": "11:30",
+                          "popularity": 0
+                      },
+                      "Wed14:30AUSCY": {
+                          "subject_code": "EEET2096_2210_1279_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Wed",
+                          "start_time": "14:30",
+                          "popularity": 0
+                      },
+                      "Thu16:30VIRTC": {
+                          "subject_code": "EEET2096_2210_1279_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "VIRTC",
+                          "day_of_week": "Thu",
+                          "start_time": "16:30",
+                          "popularity": 0
+                      }
+                  },
+                  "activities": {
+                      "EEET2096_2210_1279_AUSCY|PRA01|01": {
+                          "campus": "VIRTC",
+                          "campus_description": "Canvas",
+                          "day_of_week": "Thu",
+                          "start_time": "16:30",
+                          "location": "-",
+                          "duration": "120"
+                      },
+                      "EEET2096_2210_1279_AUSCY|PRA01|02": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Wed",
+                          "start_time": "14:30",
+                          "location": "010.09.013",
+                          "duration": "120"
+                      },
+                      "EEET2096_2210_1279_AUSCY|PRA01|03": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Thu",
+                          "start_time": "11:30",
+                          "location": "010.09.013",
+                          "duration": "120"
+                      },
+                      "EEET2096_2210_1279_AUSCY|PRA01|04": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Fri",
+                          "start_time": "11:30",
+                          "location": "010.09.013",
+                          "duration": "120"
+                      },
+                      "EEET2096_2210_1279_AUSCY|PRA01|05": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Wed",
+                          "start_time": "11:30",
+                          "location": "010.09.013",
+                          "duration": "120"
+                      }
+                  }
+              }
+          }
+      },
+      "EEET2290_2210_1328_AUSCY": {
+          "description": "Network Engineering",
+          "callista_code": "EEET2290",
+          "groups": {
+              "LTL01": {
+                  "description": "V_Lectorial",
+                  "popularities": {
+                      "Wed13:30VIRTC": {
+                          "subject_code": "EEET2290_2210_1328_AUSCY",
+                          "activity_group_code": "LTL01",
+                          "campus": "VIRTC",
+                          "day_of_week": "Wed",
+                          "start_time": "13:30",
+                          "popularity": 0
+                      },
+                      "Wed17:30VIRTC": {
+                          "subject_code": "EEET2290_2210_1328_AUSCY",
+                          "activity_group_code": "LTL01",
+                          "campus": "VIRTC",
+                          "day_of_week": "Wed",
+                          "start_time": "17:30",
+                          "popularity": 0
+                      }
+                  },
+                  "activities": {
+                      "EEET2290_2210_1328_AUSCY|LTL01|01": {
+                          "campus": "VIRTC",
+                          "campus_description": "Canvas",
+                          "day_of_week": "Wed",
+                          "start_time": "13:30",
+                          "location": "-",
+                          "duration": "60"
+                      },
+                      "EEET2290_2210_1328_AUSCY|LTL01|02": {
+                          "campus": "VIRTC",
+                          "campus_description": "Canvas",
+                          "day_of_week": "Wed",
+                          "start_time": "17:30",
+                          "location": "-",
+                          "duration": "60"
+                      }
+                  }
+              },
+              "PRA01": {
+                  "description": "Practical",
+                  "popularities": {
+                      "Fri09:30AUSCY": {
+                          "subject_code": "EEET2290_2210_1328_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Fri",
+                          "start_time": "09:30",
+                          "popularity": 0
+                      },
+                      "Fri13:30AUSCY": {
+                          "subject_code": "EEET2290_2210_1328_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Fri",
+                          "start_time": "13:30",
+                          "popularity": 0
+                      },
+                      "Mon08:30AUSCY": {
+                          "subject_code": "EEET2290_2210_1328_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Mon",
+                          "start_time": "08:30",
+                          "popularity": 0
+                      },
+                      "Thu08:30AUSCY": {
+                          "subject_code": "EEET2290_2210_1328_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Thu",
+                          "start_time": "08:30",
+                          "popularity": 0
+                      },
+                      "Mon14:30VIRTC": {
+                          "subject_code": "EEET2290_2210_1328_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "VIRTC",
+                          "day_of_week": "Mon",
+                          "start_time": "14:30",
+                          "popularity": 0
+                      }
+                  },
+                  "activities": {
+                      "EEET2290_2210_1328_AUSCY|PRA01|01": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Thu",
+                          "start_time": "08:30",
+                          "location": "057.06.008",
+                          "duration": "120"
+                      },
+                      "EEET2290_2210_1328_AUSCY|PRA01|02": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Fri",
+                          "start_time": "09:30",
+                          "location": "057.06.008",
+                          "duration": "120"
+                      },
+                      "EEET2290_2210_1328_AUSCY|PRA01|03": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Fri",
+                          "start_time": "13:30",
+                          "location": "057.06.008",
+                          "duration": "120"
+                      },
+                      "EEET2290_2210_1328_AUSCY|PRA01|04": {
+                          "campus": "VIRTC",
+                          "campus_description": "Canvas",
+                          "day_of_week": "Mon",
+                          "start_time": "14:30",
+                          "location": "057.06.008.remote",
+                          "duration": "120"
+                      },
+                      "EEET2290_2210_1328_AUSCY|PRA01|05": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Mon",
+                          "start_time": "08:30",
+                          "location": "057.06.008",
+                          "duration": "120"
+                      }
+                  }
+              }
+          }
+      },
+      "EEET2292_2210_1333_AUSCY": {
+          "description": "Enterprise and Cloud Networks",
+          "callista_code": "EEET2292",
+          "groups": {
+              "LTL01": {
+                  "description": "Lectorial",
+                  "popularities": {
+                      "Tue14:30AUSCY": {
+                          "subject_code": "EEET2292_2210_1333_AUSCY",
+                          "activity_group_code": "LTL01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Tue",
+                          "start_time": "14:30",
+                          "popularity": 0
+                      },
+                      "Tue14:30VIRTC": {
+                          "subject_code": "EEET2292_2210_1333_AUSCY",
+                          "activity_group_code": "LTL01",
+                          "campus": "VIRTC",
+                          "day_of_week": "Tue",
+                          "start_time": "14:30",
+                          "popularity": 0
+                      }
+                  },
+                  "activities": {
+                      "EEET2292_2210_1333_AUSCY|LTL01|01": {
+                          "campus": "VIRTC",
+                          "campus_description": "Canvas",
+                          "day_of_week": "Tue",
+                          "start_time": "14:30",
+                          "location": "-",
+                          "duration": "120"
+                      },
+                      "EEET2292_2210_1333_AUSCY|LTL01|02": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Tue",
+                          "start_time": "14:30",
+                          "location": "094.01.006",
+                          "duration": "120"
+                      }
+                  }
+              },
+              "PRA01": {
+                  "description": "Practical",
+                  "popularities": {
+                      "Tue10:30AUSCY": {
+                          "subject_code": "EEET2292_2210_1333_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Tue",
+                          "start_time": "10:30",
+                          "popularity": 0
+                      },
+                      "Wed10:30AUSCY": {
+                          "subject_code": "EEET2292_2210_1333_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "AUSCY",
+                          "day_of_week": "Wed",
+                          "start_time": "10:30",
+                          "popularity": 0
+                      },
+                      "Tue12:30VIRTC": {
+                          "subject_code": "EEET2292_2210_1333_AUSCY",
+                          "activity_group_code": "PRA01",
+                          "campus": "VIRTC",
+                          "day_of_week": "Tue",
+                          "start_time": "12:30",
+                          "popularity": 0
+                      }
+                  },
+                  "activities": {
+                      "EEET2292_2210_1333_AUSCY|PRA01|01": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Tue",
+                          "start_time": "10:30",
+                          "location": "057.06.008",
+                          "duration": "120"
+                      },
+                      "EEET2292_2210_1333_AUSCY|PRA01|02": {
+                          "campus": "AUSCY",
+                          "campus_description": "Melbourne City",
+                          "day_of_week": "Wed",
+                          "start_time": "10:30",
+                          "location": "057.06.008",
+                          "duration": "120"
+                      },
+                      "EEET2292_2210_1333_AUSCY|PRA01|03": {
+                          "campus": "VIRTC",
+                          "campus_description": "Canvas",
+                          "day_of_week": "Tue",
+                          "start_time": "12:30",
+                          "location": "057.06.008.remote",
+                          "duration": "120"
+                      }
+                  }
+              }
+          }
+      }
+  }
+}
