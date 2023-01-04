@@ -7,7 +7,7 @@ class MilitaryTime {
 
   get hours() { return this._hours; }
   get minutes() { return this._minutes; }
-
+  
   // Create from a "HH:MM" string
   static fromString(string) {
     let [hours, minutes] = string.split(':').map(Number);
@@ -21,6 +21,14 @@ class MilitaryTime {
 
     // We guccci
     return new MilitaryTime(hours, minutes);
+  }
+
+  toString() {
+    let minutes = this._minutes
+    if (minutes === 0) {
+      minutes = '00';
+    }
+    return `${this._hours}:${minutes}`;
   }
 
   /**
@@ -41,17 +49,15 @@ class MilitaryTime {
 
   addMinutes(minutes) {
     let result_minutes = this.minutes + minutes;
-    let result_hours = (this.hours + Math.floor(this.minutes / 60)) % 24;
+    let result_hours = (this.hours + Math.floor(result_minutes / 60)) % 24;
     result_minutes %= 60;
+    
     return (new MilitaryTime(result_hours, result_minutes));
   }
 
   // Convert HH:MM to total minutes as an int
   toMinutes() {
-    let minutes = 0;
-    minutes += this.hours * 60;
-    minutes += this.minutes;
-    return minutes;
+    return (this.hours * 60 + this.minutes);
   }
 }
 

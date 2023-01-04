@@ -17,6 +17,7 @@ const TimetableApp = () => {
   const data = queryParams.get('data');
   let semesters = null;
 
+  // todo: add for query parameter 'demo'
   if (data) {
     try {
       semesters = JSON.parse(atob(data));
@@ -40,7 +41,10 @@ const TimetableApp = () => {
       </SidebarCard>
     </Sidebar>
     <main id="content">
-      {selected_semester && <Calendar data={semesters[selected_semester]} />}
+      {selected_semester && 
+      <Calendar data={semesters[selected_semester]}>
+
+      </Calendar>}
     </main>
   </div>
   );

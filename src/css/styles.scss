@@ -1,4 +1,9 @@
 @use './vars' as v;
+
+#root {
+  height: 100vh;
+}
+
 main {
   width: auto;
 }
@@ -70,14 +75,14 @@ button:not([disabled]):hover {
 }
 
 //Calendar
-.calendar {
+.template {
+  position: relative; // position: static results in draggable bug, being offset
   background-color: white;
   border-radius: v.$border-radius-default;
   padding: v.$spacing-default;
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr;
 
   gap: var(--spacing);
@@ -93,7 +98,18 @@ button:not([disabled]):hover {
 
 .background-cell {
   border-top: 1px dashed v.$background-colour;
+  z-index: 1;
+}
+.hello {
+  z-index: 5;
+}
+// Draggable subjects
+.react-draggable {
+  cursor: grab;
 
+}
+.react-draggable-dragging {
+  cursor: grabbing;
 }
 // Dropdown
 .dropdown {
