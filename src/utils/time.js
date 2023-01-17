@@ -24,11 +24,18 @@ class MilitaryTime {
   }
 
   toString() {
-    let minutes = this._minutes
-    if (minutes === 0) {
-      minutes = '00';
+    // always HH:MM
+    let minutes = this._minutes;
+    let hours = this._hours;
+    if (minutes < 10) {
+      minutes = minutes.toString();
+      minutes = '0' + minutes;
     }
-    return `${this._hours}:${minutes}`;
+    if (hours < 10) {
+      hours = hours.toString();
+      hours = '0' + hours;
+    }
+    return `${hours}:${minutes}`;
   }
 
   /**

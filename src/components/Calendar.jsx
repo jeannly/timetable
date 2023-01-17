@@ -1,27 +1,39 @@
-import React, { useState } from 'react';
-import Draggable from 'react-draggable';
+import React, { useState, useEffect } from 'react';
 
 import CalendarCell from './CalendarCell'
-import ClassBlock from './ClassBlock'
 
 import '../css/styles.scss';
 
-import { MilitaryTime } from '../utils/time';
-import Semester from '../core/Semester';
+import Event from './Event';
 
-const MINUTES_PER_ROW = 30; // duration of a single grid row (also cell) in mins
+// the calendar + classes data is represented as you would expect visually
 
-const NUMBER_OF_GRID_COLUMNS = 5; // 1 for each day, mon - fri
-// DAY = 6am to 9pm. This was chosen arbitrarily, assuming that most classes will fit within this time range.
-const DAY_START_TIME = new MilitaryTime(6, 0); // 06:00
-const DAY_END_TIME = new MilitaryTime(21, 0);  // 21:00
-const NUMBER_OF_GRID_ROWS = (DAY_END_TIME.toMinutes() - DAY_START_TIME.toMinutes()) / MINUTES_PER_ROW; // EXCLUDES the header
-const CALENDAR_TIMES_ARRAY = representCalendarGridAsArray(NUMBER_OF_GRID_COLUMNS, NUMBER_OF_GRID_ROWS, DAY_START_TIME, MINUTES_PER_ROW);
+// options = {
+//   'days': <Array>,
+//   'minutes_per_row': <Int>,
+//   'day_start_time': <MilitaryTime>,
+//   'day_end_time': <MilitaryTime>,
+// };
 
+// events_data = {
+//  "Mon12:30": Event[],
+//  ..."DddHH:MM": Event[]
+// }
+// --> where Event = {
+//     "title": String,
+//     "description": String,
+//     "location": String,
+//     "start_time": String,
+//     "duration": Int,
+//     "confirmed": Bool
+// }
 
-const Calendar = (props) => {
-  const semester = new Semester(props.data);
-
+const Calendar = ({options, events_data}) => {
+  const NUMBER_OF_GRID_COLUMNS = options.days.length; // 1 column for each day
+  const NUMBER_OF_GRID_ROWS = (options.day_end_time.toMinutes() - options.day_start_time.toMinutes()) / options.minutes_per_row; // EXCLUDES the header
+  const HEADERS = options.days.map((name) => <h3 className="day title" key={name}>{name}</h3>);
+  
+  const GRID_ARRAY = createGridArray(NUMBER_OF_GRID_COLUMNS, NUMBER_OF_GRID_ROWS, options.day_start_time, options.minutes_per_row, options.days);
   let styles = {}; // 'namespace' for all inline styles
 
   /*************************
@@ -29,76 +41,56 @@ const Calendar = (props) => {
    *************************/
   styles.template = {
     gridTemplateColumns: `repeat(${NUMBER_OF_GRID_COLUMNS}, 2fr)`,
-    gridTemplateRows: `2fr repeat(${NUMBER_OF_GRID_ROWS}, 1fr)`
+    gridTemplateRows: `1fr repeat(${NUMBER_OF_GRID_ROWS}, 1fr)`
   };
 
   return (
     <div className="calendar">
       <div className="template" style={styles.template}>
-        <h3 className="day title">Monday</h3>
-        <h3 className="day title">Tuesday</h3>
-        <h3 className="day title">Wednesday</h3>
-        <h3 className="day title">Thursday</h3>
-        <h3 className="day title">Friday</h3>
-        {
-           // Todo: Map CALENDAR_TIMES_ARRAY to a background cell + any relevant subjects
-           CALENDAR_TIMES_ARRAY.map((element, index) => {
-            return (
-              <CalendarCell key={index}>
-                {element.start_time}
-              </CalendarCell>
-            )
-           })
-        }
+        { HEADERS }
+        {GRID_ARRAY.map((day_time) => {
+          let events_for_this_day_and_time = null;
+          if (events_data.hasOwnProperty(day_time)) {
+            events_for_this_day_and_time = events_data[day_time].map((event) => <Event key={event.name + event.description + event.location} data={event} />)
+          }
+
+          return (
+            <CalendarCell key={day_time}>
+              {events_data.hasOwnProperty(day_time) && events_for_this_day_and_time}
+            </CalendarCell>
+          );
+        })}
       </div>
     </div>
   );
 }
 
 /*
- ---     representCalendarGridAsArray  ---
-
-Represent a CSS grid as an array, for easier mapping. 
-        ┌───┬───┬───┬───┬───┐
-    6:00┤ 0 │ 1 │ 2 │ 3 │ 4 │
-        │   │   │   │   │   │
-        ├───┼───┼───┼───┼───┤
-    6:30│ 5 │ 6 │ 7 │ 8 │ 9 │ 
-        ┤   │   │   │   ├───┼──> array[8] = {
-        ├───┼───┼───┼───┼───┤     'day_of_week': 'Thu',
-    7:00│10 │11 │12 │13 │14 │     'start_time': '6:30',
-        │   │   │   │   │   │     'classes': []
-        ├───┼───┼───┼───┼───┤    }
-    7:30│15 │16 │17 │18 │19 │
-        │   │   │   │   │   │
-        └───┴───┴───┴───┴───┘
+creates an array as such:
+["Mon6:00", "Tue6:00", "Wed6:00", "Thu6:00", "Fri6:00", "Mon6:30", "Tue6:30","Wed6:30","Thu6:30","Fri6:30"]
+...
+and so on and so forth: from start_time to end_time, in intervals of minutes_per_row.
+This matches the Allocate+ data formatting
 */
+function createGridArray(columns, rows, start_time, minutes_per_row, days) {
+  // Format `days` so that the format is always Ddd -> 3 letters with first letter uppercase, 
+  //  e.g. MOnday = Mon, TUES = Tue
+  let formatted_days = days.map((day) => {
+    return (day.toUpperCase()[0] + day.toLowerCase().substring(1,3))
+  });
 
-function representCalendarGridAsArray(columns, rows, calendar_start_time, minutes_per_row) {
-  // Two things to note about DAYS: 
-  //   1) Each day's index corresponds to its calendar grid index
-  //   2) The day's format (i.e. 3 letter starting with caps) follow Allocate+'s data format; see utils/semesters_example.json
-  const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+  let array = []
+  let time = start_time;
 
-  /*
-  What in tarnation are we returning?
-   Array.from(Array(columns*rows),         --> Create empty array of size columns*rows
-      (element, index) => { ... }          --> ... and map each element of the empty array to its respective calendar data, based on index (see above)
-  */
-  return Array.from(Array(columns*rows),
-    (element, index) => {
-      let offset = 1;
-      let row_number = 0;
-      while (index >= (columns * (row_number + offset))) { row_number++; };
-      let day_index = index % columns;
-      
-      return { 
-        'day_of_week': DAYS[day_index],
-        'start_time': calendar_start_time.addMinutes(row_number*minutes_per_row).toString(), // toString, to follow Allocate+'s data format
-        'classes': []
-      };
+  for (let cell = 0; cell < columns*rows; cell++) {
+    if (cell % formatted_days.length === 0 && cell !== 0) {
+      time = time.addMinutes(minutes_per_row);
     }
-  );
+    let day = formatted_days[cell % days.length];
+    array[cell] = day + time.toString();
+  }
+
+  return array;
 }
 
 export default Calendar;
